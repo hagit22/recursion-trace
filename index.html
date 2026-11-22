@@ -179,12 +179,18 @@ body.zoom-active .nav-btn { pointer-events: none; }
 
 /* table trace slide */
 .tb-main { flex: 1; min-height: 0; margin-top: 18px; display: flex; flex-direction: column; gap: 16px; }
-.tb-wrap { flex: 1; min-height: 0; overflow: hidden; }
+.tb-wrap { flex: 1; min-height: 0; overflow: hidden; position: relative; padding: 0 64px; }
+.tb-arrows { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.tb-arrows path { fill: none; stroke-width: 7; stroke-linecap: round; transition: opacity .3s ease; }
+.tb-arrows path.dn { stroke: var(--color-accent-2); }
+.tb-arrows path.up { stroke: var(--color-accent); }
+.tb-arrows path.lk { stroke-width: 4; }
 .tb { direction: ltr; width: 100%; border-collapse: collapse; font-size: var(--tb-font, 24px); background: var(--color-neutral-100); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow-sm); }
 .tb th { direction: rtl; background: var(--color-neutral-900); color: var(--color-neutral-100); font-weight: 600; padding: 10px 12px; line-height: 1.2; font-size: 0.85em; white-space: nowrap; }
 .tb th .cc { color: var(--color-accent-300); }
 .tb td { border-top: 1px solid var(--color-neutral-300); border-left: 1px solid var(--color-neutral-300); padding: calc(var(--tb-font, 24px) * 0.22) 12px; line-height: 1.25; text-align: center; white-space: nowrap; transition: background .25s ease, opacity .25s ease; }
-.tb td:first-child { border-left: none; font-family: var(--font-heading); color: var(--color-accent-700); }
+.tb td:first-child { border-left: none; }
+.tb td.call { font-family: var(--font-code); font-weight: 700; color: var(--color-accent-700); }
 .tb td.cmd { font-family: var(--font-code); text-align: left; white-space: pre; }
 .tb td.code { font-family: var(--font-code); }
 .tb tr.blk td { border-top: 4px solid var(--color-neutral-700); }
@@ -203,7 +209,7 @@ body.zoom-active .nav-btn { pointer-events: none; }
 .tb-row { flex: 1; min-height: 0; display: flex; gap: 28px; align-items: flex-start; }
 .tb-row .tb-wrap { flex: 1; align-self: stretch; }
 .tb-out { width: 280px; }
-.tb-out .out-b { min-height: 140px; font-size: 40px; line-height: 50px; }
+.tb-out .out-b { min-height: 140px; font-size: 40px; line-height: 50px; direction: ltr; text-align: left; }
 
 /* navigation */
 .nav-btn { direction: ltr; position: fixed; top: 50%; transform: translateY(-50%); width: 64px; height: 64px; border-radius: 999px; border: none; background: var(--color-surface); color: var(--color-text); font-size: 30px; cursor: pointer; box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; z-index: 10; font-family: var(--font-body); }
@@ -341,6 +347,22 @@ public static int Percent(int number, int percent)
   <h2 class="slide-title">מעקב עבור <bdi dir="ltr">DrawDown(3, '*')</bdi></h2>
   <div class="page-foot" aria-hidden="true"></div>
 </section>
+<section class="slide tbtrace" data-table="down" data-label="טבלת מעקב DrawDown(3, '*')">
+  <h2 class="slide-title">טבלת מעקב עבור <bdi dir="ltr">DrawDown(3, '*')</bdi></h2>
+  <div class="tb-main">
+    <div class="tb-row">
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="out tb-out"><div class="out-h"><span>פלט</span><span></span></div><div class="out-b"></div></div>
+    </div>
+    <div class="step-dots"></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
 <section class="slide" data-label="מה הפעולה עושה? DrawUp">
   <h2 class="slide-title">מה הפעולה עושה? <bdi dir="ltr">DrawUp</bdi></h2>
   <div class="ex-grid">
@@ -447,6 +469,22 @@ public static int Percent(int number, int percent)
   <h2 class="slide-title">מעקב עבור <bdi dir="ltr">DrawPyramid(3, '*', 0)</bdi></h2>
   <div class="page-foot" aria-hidden="true"></div>
 </section>
+<section class="slide tbtrace" data-table="pyr" data-label="טבלת מעקב DrawPyramid(3, '*', 0)">
+  <h2 class="slide-title">טבלת מעקב עבור <bdi dir="ltr">DrawPyramid(3, '*', 0)</bdi></h2>
+  <div class="tb-main">
+    <div class="tb-row">
+      <div class="tb-wrap">
+        <table class="tb">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="out tb-out"><div class="out-h"><span>פלט</span><span class="legend">· = רווח</span></div><div class="out-b"></div></div>
+    </div>
+    <div class="step-dots"></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
 <section class="slide" data-label="תרגיל 1">
   <span class="tx-tag">תרגיל 1</span>
   <h2 class="slide-title" style="margin-top:20px;">סכום ספרות</h2>
@@ -461,22 +499,6 @@ public static int Percent(int number, int percent)
   </div>
   <div class="page-foot" aria-hidden="true"></div>
 </section>
-<section class="slide" data-label="תרגיל 2">
-  <span class="tx-tag tx-tag-row">תרגיל 2</span>
-  <h2 class="slide-title" style="margin-top:20px;">חזקה</h2>
-  <p class="task-text">כתבו פעולה רקורסיבית המקבלת בסיס <bdi class="cc" dir="ltr">baseNum</bdi> ומעריך <bdi class="cc" dir="ltr">exponent ≥ 0</bdi>, ומחזירה את <bdi class="cc" dir="ltr">baseNum</bdi> בחזקת <bdi class="cc" dir="ltr">exponent</bdi>.</p>
-  <div class="code-block" style="align-self:flex-end; margin-top:48px; padding:40px 56px;">public static int Power(int baseNum, int exponent)
-{
-
-}</div>
-  <div class="task-notes">
-    <div>דוגמה: <bdi class="cc" dir="ltr">Power(2, 3)</bdi> מחזירה <b>8</b></div>
-    <div>לאחר מכן: ערכו מעקב עבור <bdi class="cc" dir="ltr">Power(2, 3)</bdi></div>
-  </div>
-  <div class="page-foot" aria-hidden="true"></div>
-</section>
-
-<!-- ===== פתרונות: אפשר להסתיר ע"י הקפת הקטע ב-<!-- ... --> ===== -->
 <section class="slide" data-label="פתרון 1">
   <span class="tx-tag">פתרון 1</span>
   <h2 class="slide-title" style="margin-top:20px;">סכום ספרות</h2>
@@ -492,6 +514,33 @@ public static int Percent(int number, int percent)
 </section>
 <section class="slide trace" data-trace="sum" data-label="מעקב SumDigits(352)">
   <h2 class="slide-title">מעקב עבור <bdi dir="ltr">SumDigits(352)</bdi></h2>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<section class="slide tbtrace" data-table="sum" data-label="טבלת מעקב SumDigits(352)">
+  <h2 class="slide-title">טבלת מעקב עבור <bdi dir="ltr">SumDigits(352)</bdi></h2>
+  <div class="tb-main">
+    <div class="tb-wrap">
+      <table class="tb">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="step-dots"></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<section class="slide" data-label="תרגיל 2">
+  <span class="tx-tag tx-tag-row">תרגיל 2</span>
+  <h2 class="slide-title" style="margin-top:20px;">חזקה</h2>
+  <p class="task-text">כתבו פעולה רקורסיבית המקבלת בסיס <bdi class="cc" dir="ltr">baseNum</bdi> ומעריך <bdi class="cc" dir="ltr">exponent ≥ 0</bdi>, ומחזירה את <bdi class="cc" dir="ltr">baseNum</bdi> בחזקת <bdi class="cc" dir="ltr">exponent</bdi>.</p>
+  <div class="code-block" style="align-self:flex-end; margin-top:48px; padding:40px 56px;">public static int Power(int baseNum, int exponent)
+{
+
+}</div>
+  <div class="task-notes">
+    <div>דוגמה: <bdi class="cc" dir="ltr">Power(2, 3)</bdi> מחזירה <b>8</b></div>
+    <div>לאחר מכן: ערכו מעקב עבור <bdi class="cc" dir="ltr">Power(2, 3)</bdi></div>
+  </div>
   <div class="page-foot" aria-hidden="true"></div>
 </section>
 <section class="slide" data-label="פתרון 2">
@@ -511,6 +560,70 @@ public static int Percent(int number, int percent)
   <h2 class="slide-title">מעקב עבור <bdi dir="ltr">Power(2, 3)</bdi></h2>
   <div class="page-foot" aria-hidden="true"></div>
 </section>
+<section class="slide tbtrace" data-table="pow" data-label="טבלת מעקב Power(2, 3)">
+  <h2 class="slide-title">טבלת מעקב עבור <bdi dir="ltr">Power(2, 3)</bdi></h2>
+  <div class="tb-main">
+    <div class="tb-wrap">
+      <table class="tb">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="step-dots"></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<section class="slide" data-label="תרגיל 3">
+  <span class="tx-tag">תרגיל 3</span>
+  <h2 class="slide-title" style="margin-top:20px;">מספר המופעים של ספרה</h2>
+  <p class="task-text">כתבו פעולה רקורסיבית המקבלת מספר וסיפרה, ומחזירה את מספר המופעים של הסיפרה במספר.</p>
+  <div class="code-block" style="align-self:flex-end; margin-top:48px; padding:40px 56px;">public static int HowMany(int number, int digit)
+{
+
+}</div>
+  <div class="task-notes">
+    <div>דוגמה: <bdi class="cc" dir="ltr">HowMany(3532, 3)</bdi> מחזירה <b>2</b></div>
+    <div>לאחר מכן: ערכו מעקב עבור <bdi class="cc" dir="ltr">HowMany(3532, 3)</bdi></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<section class="slide" data-label="פתרון 3">
+  <span class="tx-tag">פתרון 3</span>
+  <h2 class="slide-title" style="margin-top:20px;">מספר המופעים של ספרה</h2>
+  <div class="zoom-overlay"></div>
+  <div class="code-wrap"><div class="code-block zoomable" style="font-size:32px; line-height:44px; padding:36px 56px; --zoom:1.2;">public static int HowMany(int number, int digit)
+{
+    if (number &lt; 10)
+    {
+        if (number == digit)
+            return 1;
+        return 0;
+    }
+    int result = HowMany(number / 10, digit);
+    if (number % 10 == digit)
+        result = result + 1;
+    return result;
+}</div></div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<section class="slide trace" data-trace="how" data-label="מעקב HowMany(3532, 3)">
+  <h2 class="slide-title">מעקב עבור <bdi dir="ltr">HowMany(3532, 3)</bdi></h2>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+<section class="slide tbtrace" data-table="how" data-label="טבלת מעקב HowMany(3532, 3)">
+  <h2 class="slide-title">טבלת מעקב עבור <bdi dir="ltr">HowMany(3532, 3)</bdi></h2>
+  <div class="tb-main">
+    <div class="tb-wrap">
+      <table class="tb">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="step-dots"></div>
+  </div>
+  <div class="page-foot" aria-hidden="true"></div>
+</section>
+
 
 <button class="nav-btn nav-prev" id="prevBtn" aria-label="השקופית הקודמת">&lsaquo;</button>
 <button class="nav-btn nav-next" id="nextBtn" aria-label="השקופית הבאה">&rsaquo;</button>
@@ -583,6 +696,7 @@ function retTrace(sp) {
   return b.steps;
 }
 function fact(n) { return n <= 1 ? 1 : n * fact(n - 1); }
+function hm(x, d) { return String(x).split('').filter(function (ch) { return Number(ch) === d; }).length; }
 function digitSum(x) { return String(x).split('').reduce(function (a, c) { return a + Number(c); }, 0); }
 
 var TRACES = {
@@ -725,6 +839,42 @@ var TRACES = {
         valRow: function (x, cv) { return 'result = ' + (x % 10) + ' + <span class="val">' + cv + '</span><span class="res">  → ' + digitSum(x) + '</span>'; },
         expr: function (x, cv) { return (x % 10) + ' + ' + cv; }
       });
+    }
+  },
+
+  how: {
+    code: ['public static int HowMany(int number, int digit)', '{', '    if (number < 10)', '    {', '        if (number == digit)', '            return 1;', '        return 0;', '    }', '    int result = HowMany(number / 10, digit);', '    if (number % 10 == digit)', '        result = result + 1;', '    return result;', '}'],
+    codeFont: 34, rowFont: 22, labelFont: 22, boxW: 500,
+    build: function () {
+      var ks = [3532, 353, 35, 3], D = 3, n = ks.length;
+      var b = new Builder(ks.map(function (k, i) {
+        if (k < 10) return { label: 'number = ' + k + ', digit = 3', rows: ['if (number &lt; 10)', 'if (' + k + ' == 3)', 'return 1'] };
+        return { label: 'number = ' + k + ', digit = 3', rows: ['if (number &lt; 10)', 'result = <u>HowMany(' + ks[i + 1] + ', 3)</u>', 'if (' + (k % 10) + ' == 3)', 'return result'] };
+      }));
+      b.push([], '');
+      ks.forEach(function (k, i) {
+        b.open(i); b.push([0], 'זימון `HowMany(' + k + ', 3)` – נפתחת קופסה' + (i ? ' חדשה' : ''));
+        if (k < 10) {
+          b.row(i, 0, 'if (number &lt; 10)' + YES); b.push([2], 'האם `number < 10`? כן! הגענו לתנאי העצירה');
+          b.row(i, 1, 'if (' + k + ' == 3)' + YES); b.push([4], 'האם `number == digit`? כן!');
+          b.row(i, 2); b.up(i - 1, 1); b.push([5], 'מחזירים 1 – מכאן מתחילים לחזור למעלה');
+        } else {
+          b.row(i, 0, 'if (number &lt; 10)' + NO); b.push([2], 'האם `number < 10`? לא!');
+          b.row(i, 1); b.mark(i, 1); b.push([8], 'כדי לחשב את `result` צריך את `HowMany(' + ks[i + 1] + ', 3)`. הקופסה נעצרת כאן – סימנייה');
+        }
+      });
+      for (var i = n - 2; i >= 0; i--) {
+        var k = ks[i], cv = hm(ks[i + 1], D), ld = k % 10, match = ld === D;
+        b.back(i); b.row(i, 1, 'result = <span class="val">' + cv + '</span>');
+        b.push([8], 'חוזרים לסימנייה: `HowMany(' + ks[i + 1] + ', 3)` מוחלף ב-' + cv);
+        b.mark(i, 1, false); b.row(i, 2, 'if (' + ld + ' == 3)' + (match ? YES : NO));
+        b.push([9], 'האם הספרה האחרונה (' + ld + ') שווה ל-3? ' + (match ? 'כן!' : 'לא!'));
+        if (match) { b.row(i, 1, 'result = ' + cv + ' + 1<span class="res">  → ' + (cv + 1) + '</span>'); b.push([10], 'מוסיפים 1: `result = ' + (cv + 1) + '`'); }
+        b.row(i, 3);
+        if (i > 0) { b.up(i - 1, hm(k, D)); b.push([11], 'מחזירים ' + hm(k, D) + ' לקופסה שזימנה'); }
+        else { b.s.frames[0].ret = 'מחזירה ' + hm(k, D); b.push([11], '`HowMany(3532, 3)` מחזירה ' + hm(k, D)); }
+      }
+      return b.steps;
     }
   },
 
@@ -1025,87 +1175,141 @@ function initCalls(slide) {
    TABLE TRACE SLIDE: Factorial(4) as a trace table
    Each row: [command, condition, num, result, call, returned]  (HTML)
    ===================================================================== */
-var TABLES = {
-  fact: {
-    headers: ['מספר זימון', 'הפקודה לביצוע', 'התנאי <bdi class="cc" dir="ltr">num == 1</bdi>', '<bdi class="cc" dir="ltr">num</bdi>', '<bdi class="cc" dir="ltr">result</bdi>', 'זימון הפעולה', 'הערך המוחזר'],
-    cellCls: ['', 'cmd', '', 'num', '', 'code', ''],
+var T_ = '<span class="t">true</span>', F_ = '<span class="f">false</span>';
+function hc(s) { return '<bdi class="cc" dir="ltr">' + s + '</bdi>'; }
+
+/* table for a method with a return value:
+   משפט זימון | parameter | התנאי | הוראת החזרה (down, stays) | [second condition (up)] | ערך מוחזר (up, with the calculation) */
+function markCall(expr, nm) { if (expr.indexOf(nm) < 0) nm = nm.replace('<br>', ''); return expr.replace(nm, '<span class="tcall">' + nm + '</span>'); }
+function retTable(o) {
+  var c2 = !!o.cond2;
+  var RET = c2 ? 5 : 4, C2 = 4;
+  var headers = ['משפט זימון', hc(o.param), 'התנאי ' + hc(o.cond), 'זימון רקורסיבי<br>' + hc(o.callHead)];
+  if (c2) headers.push('התנאי ' + hc(o.cond2.head));
+  headers.push('ערך מוחזר');
+  return {
+    headers: headers, links: true, retCol: RET, edge: c2,
+    cellCls: c2 ? ['call', 'num', '', 'code', 'code', 'code'] : ['call', 'num', '', 'code', 'code'],
     build: function () {
-      var ks = [4, 3, 2, 1], rows = [], steps = [], blk = {};
-      function row(cls, cmd) { rows.push({ cls: cls, cells: ['', cmd, '', '', '', '', ''], show: false, fade: false }); return rows.length - 1; }
-      ks.forEach(function (k) {
-        var b = { call: row('blk call', 'Factorial(' + k + ')'), iff: row('', '    if (num == 1)') };
-        if (k === 1) b.ret = row('', '        return 1;');
-        else { b.res = row('', '    int result = Factorial(num - 1) * num;'); b.ret = row('', '    return result;'); }
-        blk[k] = b;
-      });
-      function push(on) { steps.push({ on: on, rows: JSON.parse(JSON.stringify(rows)), out: [] }); }
+      var ks = o.ks, rows = [], steps = [];
+      ks.forEach(function () { rows.push({ cls: 'blk', cells: headers.map(function () { return ''; }), show: true }); });
+      function push(on, up) { steps.push({ on: on, up: !!up, rows: JSON.parse(JSON.stringify(rows)), out: [] }); }
       push(-1);
       ks.forEach(function (k, i) {
-        var b = blk[k];
-        rows[b.call].show = true; rows[b.call].cells[0] = String(i + 1); rows[b.call].cells[3] = String(k); push(b.call);
-        rows[b.iff].show = true; rows[b.iff].cells[2] = k === 1 ? '<span class="t">true</span>' : '<span class="f">false</span>'; push(b.iff);
-        if (k === 1) { rows[b.ret].show = true; rows[b.ret].cells[6] = '<span class="ret">1</span>'; push(b.ret); }
-        else {
-          rows[b.res].show = true; rows[b.res].cells[5] = 'Factorial(' + (k - 1) + ') * ' + k;
-          rows[b.ret].show = true; rows[b.ret].fade = true;
-          push(b.res);
-        }
+        var c = rows[i].cells, base = o.isBase(k);
+        c[0] = o.name(k); c[1] = String(k);
+        c[2] = base ? T_ : F_;
+        c[3] = base ? '–' : markCall(o.expr(k, ks[i + 1]), o.name(ks[i + 1]));
+        if (base) { if (c2) c[C2] = o.cond2.base ? o.cond2.base(k) : o.cond2.text(k); c[RET] = '<span class="ret">' + o.val(k) + '</span>'; }
+        push(i);
       });
-      [2, 3, 4].forEach(function (k) {
-        var b = blk[k];
-        rows[b.res].cells[5] = '<span class="val">' + fact(k - 1) + '</span> * ' + k;
-        rows[b.res].cells[4] = String(fact(k));
-        push(b.res);
-        rows[b.ret].fade = false; rows[b.ret].cells[6] = '<span class="ret">' + fact(k) + '</span>';
-        push(b.ret);
-      });
+      for (var i = ks.length - 2; i >= 0; i--) {
+        rows[i].arrived = true; push(i, true);
+        if (c2 && o.cond2.ask) { rows[i].cells[C2] = o.cond2.ask(ks[i]); push(i, true); }
+        if (c2) rows[i].cells[C2] = o.cond2.text(ks[i]);
+        rows[i].cells[RET] = '<span class="ret">' + o.val(ks[i]) + '</span>';
+        push(i, true);
+      }
       return steps;
     }
-  },
+  };
+}
 
-  up: {
-    headers: ['מספר זימון', 'הפקודה לביצוע', 'התנאי <bdi class="cc" dir="ltr">number &gt; 1</bdi>', '<bdi class="cc" dir="ltr">number</bdi>', 'זימון הפעולה', 'פלט'],
-    cellCls: ['', 'cmd', '', 'num', 'code', ''],
+/* table for a void drawing method: משפט זימון | number | התנאי | פלט */
+function drawTable(name, printFirst) {
+  return {
+    headers: ['משפט זימון', hc('number'), 'התנאי ' + hc('number &gt; 1'), 'פלט'],
+    cellCls: ['call', 'num', '', 'code'],
     build: function () {
-      var ks = [3, 2, 1], rows = [], steps = [], blk = {}, out = [];
-      function row(cls, cmd) { rows.push({ cls: cls, cells: ['', cmd, '', '', '', ''], show: false, fade: false }); return rows.length - 1; }
-      ks.forEach(function (k) {
-        var b = { call: row('blk call', "DrawUp(" + k + ", '*')"), iff: row('', '    if (number > 1)') };
-        if (k > 1) b.rec = row('', '        DrawUp(number - 1, tav);');
-        b.loop = row('', '    for (...) Console.Write(tav);');
-        b.wl = row('', '    Console.WriteLine();');
-        blk[k] = b;
+      var ks = [3, 2, 1], rows = [], steps = [], out = [];
+      ks.forEach(function () { rows.push({ cls: 'blk', cells: ['', '', '', ''], show: true }); });
+      function push(on, up) { steps.push({ on: on, up: !!up, rows: JSON.parse(JSON.stringify(rows)), out: out.slice() }); }
+      function stars(i) { var s = new Array(ks[i] + 1).join('*'); rows[i].cells[3] = '<span class="stars">' + s + '</span>'; out.push(s); }
+      push(-1);
+      ks.forEach(function (k, i) {
+        var c = rows[i].cells;
+        c[0] = name + '(' + k + ", '*')"; c[1] = String(k);
+        c[2] = k > 1 ? T_ : F_;
+        if (printFirst || k === 1) stars(i);
+        push(i);
       });
-      function push(on) { steps.push({ on: on, rows: JSON.parse(JSON.stringify(rows)), out: out.slice() }); }
-      function print(k) {
-        var b = blk[k];
-        rows[b.loop].fade = false; rows[b.loop].cells[5] = '<span class="stars">' + new Array(k + 1).join('*') + '</span>';
-        out.push(new Array(k + 1).join('*')); push(b.loop);
-        rows[b.wl].fade = false; rows[b.wl].cells[5] = '<span class="done">ירידת שורה</span>'; push(b.wl);
+      if (printFirst) push(-1, true);
+      else for (var i = ks.length - 2; i >= 0; i--) { stars(i); push(i, true); }
+      return steps;
+    }
+  };
+}
+
+/* table for DrawPyramid: משפט זימון | rows | indent | התנאי | פלט (printing happens after the call) */
+function pyrTable() {
+  return {
+    headers: ['משפט זימון', hc('rows'), hc('indent'), 'התנאי ' + hc('rows &gt; 1'), 'פלט'],
+    cellCls: ['call', 'num', 'num', '', 'code'],
+    dots: true,
+    build: function () {
+      var ks = [3, 2, 1], ind = [0, 1, 2], rows = [], steps = [], out = [];
+      ks.forEach(function () { rows.push({ cls: 'blk', cells: ['', '', '', '', ''], show: true }); });
+      function push(on, up) { steps.push({ on: on, up: !!up, rows: JSON.parse(JSON.stringify(rows)), out: out.slice() }); }
+      function line(i) {
+        var s = new Array(ind[i] + 1).join(' ') + new Array(2 * ks[i]).join('*');
+        rows[i].cells[4] = '<span class="stars">' + s.replace(/ /g, '<span style="color:var(--color-accent-2-600); font-weight:400;">·</span>') + '</span>';
+        out.push(s);
       }
       push(-1);
       ks.forEach(function (k, i) {
-        var b = blk[k];
-        rows[b.call].show = true; rows[b.call].cells[0] = String(i + 1); rows[b.call].cells[3] = String(k); push(b.call);
-        rows[b.iff].show = true; rows[b.iff].cells[2] = k > 1 ? '<span class="t">true</span>' : '<span class="f">false</span>'; push(b.iff);
-        if (k > 1) {
-          rows[b.rec].show = true; rows[b.rec].cells[4] = "DrawUp(" + (k - 1) + ", '*')";
-          rows[b.loop].show = rows[b.wl].show = true; rows[b.loop].fade = rows[b.wl].fade = true;
-          push(b.rec);
-        } else {
-          rows[b.loop].show = rows[b.wl].show = true;
-          print(k);
-        }
+        var c = rows[i].cells;
+        c[0] = 'DrawPyramid(' + k + ", '*', " + ind[i] + ')'; c[1] = String(k); c[2] = String(ind[i]);
+        c[3] = k > 1 ? T_ : F_;
+        if (k === 1) line(i);
+        push(i);
       });
-      [2, 3].forEach(function (k) {
-        var b = blk[k];
-        rows[b.rec].cells[4] = "DrawUp(" + (k - 1) + ", '*') <span class=\"done\">✓ חזר</span>";
-        push(b.rec);
-        print(k);
-      });
+      for (var i = ks.length - 2; i >= 0; i--) { line(i); push(i, true); }
       return steps;
     }
-  }
+  };
+}
+
+var TABLES = {
+  pyr: pyrTable(),
+  fact: retTable({
+    ks: [4, 3, 2, 1], param: 'num', cond: 'num == 1', callHead: 'Factorial(num - 1) * num',
+    isBase: function (k) { return k === 1; },
+    name: function (k) { return 'Factorial(' + k + ')'; },
+    expr: function (k, nk) { return 'Factorial(' + nk + ') * ' + k; },
+    val: fact,
+    calc: function (k, v) { return v + ' * ' + k; }
+  }),
+  down: drawTable('DrawDown', true),
+  up: drawTable('DrawUp', false),
+  sum: retTable({
+    ks: [352, 35, 3], param: 'number', cond: 'number &lt; 10', callHead: 'number % 10 + SumDigits(number / 10)',
+    isBase: function (k) { return k < 10; },
+    name: function (k) { return 'SumDigits(' + k + ')'; },
+    expr: function (k, nk) { return (k % 10) + ' + SumDigits(' + nk + ')'; },
+    val: digitSum,
+    calc: function (k, v) { return (k % 10) + ' + ' + v; }
+  }),
+  pow: retTable({
+    ks: [3, 2, 1, 0], param: 'exponent', cond: 'exponent == 0', callHead: 'baseNum * Power(baseNum, exponent - 1)',
+    isBase: function (k) { return k === 0; },
+    name: function (k) { return 'Power(2, ' + k + ')'; },
+    expr: function (k, nk) { return '2 * Power(2, ' + nk + ')'; },
+    val: function (k) { return Math.pow(2, k); },
+    calc: function (k, v) { return '2 * ' + v; }
+  }),
+  how: retTable({
+    ks: [3532, 353, 35, 3], param: 'number', cond: 'number &lt; 10', callHead: 'result = HowMany(number / 10, digit)',
+    isBase: function (k) { return k < 10; },
+    name: function (k) { return 'HowMany(' + k + ', 3)'; },
+    cond2: { head: 'number % 10 == digit',
+      ask: function (k) { return k + ' % 10 == 3 ' + (k % 10 === 3 ? '<span class="t">✓</span>' : '<span class="f">✗</span>'); },
+      text: function (k) { return 'result + ' + (k % 10 === 3 ? 1 : 0); },
+      base: function (k) { return k + ' == 3 → ' + (k === 3 ? T_ : F_); } },
+    expr: function (k, nk) { return 'result = HowMany(' + nk + ', 3)'; },
+    baseExpr: function () { return '–'; },
+    val: function (k) { return hm(k, 3); },
+    calc: function (k, v) { return v + ' + ' + (k % 10 === 3 ? 1 : 0); }
+  })
 };
 
 function initTable(slide) {
@@ -1113,6 +1317,47 @@ function initTable(slide) {
   var steps = cfg.build(), cur = 0;
   slide.querySelector('.tb thead').innerHTML = '<tr>' + cfg.headers.map(function (h) { return '<th>' + h + '</th>'; }).join('') + '</tr>';
   var outB = slide.querySelector('.tb-out .out-b');
+  var key = slide.getAttribute('data-table');
+  var hasUp = steps.some(function (s) { return s.up; });
+  var wrapEl = slide.querySelector('.tb-wrap');
+  var asvg = document.createElementNS(SVGNS, 'svg'); asvg.setAttribute('class', 'tb-arrows');
+  asvg.innerHTML = '<defs>' +
+    '<marker id="tb-dn-' + key + '" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" style="fill:var(--color-accent-2);stroke:none"></path></marker>' +
+    '<marker id="tb-up-' + key + '" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="3.5" markerHeight="3.5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" style="fill:var(--color-accent);stroke:none"></path></marker></defs>' +
+    '<path class="dn" marker-end="url(#tb-dn-' + key + ')"></path><path class="up" marker-end="url(#tb-up-' + key + ')"></path>';
+  wrapEl.appendChild(asvg);
+  var arDn = asvg.querySelector('path.dn'), arUp = asvg.querySelector('path.up');
+  var links = [];
+  if (cfg.links) for (var li = 0; li < steps[0].rows.length - 1; li++) { var lp = document.createElementNS(SVGNS, 'path'); lp.setAttribute('class', 'up lk'); lp.setAttribute('marker-end', 'url(#tb-up-' + key + ')'); asvg.appendChild(lp); links.push(lp); }
+  function drawArrows() {
+    var t = slide.querySelector('.tb');
+    var top = t.offsetTop + t.tHead.offsetHeight + 14, bot = t.offsetTop + t.offsetHeight - 14;
+    var xl = t.offsetLeft - 32, xr = t.offsetLeft + t.offsetWidth + 32;
+    arDn.setAttribute('d', 'M' + xl + ' ' + top + ' V' + bot);
+    arUp.setAttribute('d', 'M' + xr + ' ' + bot + ' V' + top);
+    var s = steps[cur];
+    arDn.style.opacity = cur >= 1 ? 1 : 0;
+    var upNow = hasUp && steps.slice(0, cur + 1).some(function (x) { return x.up; });
+    arUp.style.opacity = upNow ? 1 : 0;
+    if (links.length) {
+      var wr = wrapEl.getBoundingClientRect(), sc = wr.width / wrapEl.offsetWidth || 1;
+      var trs = slide.querySelectorAll('.tb tbody tr');
+      links.forEach(function (lp, i) {
+        var rs = trs[i + 1] && trs[i + 1].querySelector('.ret'), tc = trs[i] && trs[i].querySelector('.tcall');
+        var on = (s.rows[i].arrived || s.rows[i].cells[cfg.retCol] !== '') && rs && tc;
+        lp.style.opacity = on ? 1 : 0;
+        if (!on) return;
+        var a = rs.getBoundingClientRect(), b = tc.getBoundingClientRect();
+        var sx = (a.left - wr.left) / sc - 8, sy = (a.top + a.height / 2 - wr.top) / sc;
+        var tx = (b.left + b.width / 2 - wr.left) / sc, ty = (b.bottom - wr.top) / sc + 8;
+        if (cfg.edge) {
+          // a column with content sits between the value and the call: run the arrow along the line between the two rows
+          var by = (trs[i + 1].getBoundingClientRect().top - wr.top) / sc, ax = (a.left + a.width / 2 - wr.left) / sc, ay = (a.top - wr.top) / sc - 4;
+          lp.setAttribute('d', 'M' + ax + ' ' + ay + ' C' + ax + ' ' + by + ' ' + ax + ' ' + by + ' ' + (ax - 24) + ' ' + by + ' L' + (tx + 24) + ' ' + by + ' C' + tx + ' ' + by + ' ' + tx + ' ' + by + ' ' + tx + ' ' + (ty - 4));
+        } else lp.setAttribute('d', 'M' + sx + ' ' + sy + ' C' + (sx - 90) + ' ' + sy + ' ' + tx + ' ' + (ty + 70) + ' ' + tx + ' ' + ty);
+      });
+    }
+  }
   var tbody = slide.querySelector('.tb tbody');
   var wrap = slide.querySelector('.tb-wrap'), table = slide.querySelector('.tb');
   var dots = slide.querySelector('.step-dots');
@@ -1123,19 +1368,21 @@ function initTable(slide) {
     s.rows.forEach(function (row, r) {
       var cls = row.cls + (row.fade ? ' fade' : '') + (r === s.on ? ' on' : '');
       html += '<tr class="' + cls + '">' + row.cells.map(function (c, j) {
-        var txt = (j === 1 && !row.show) ? '' : c;
-        return '<td class="' + cfg.cellCls[j] + '">' + (j === 1 ? esc(txt) : txt) + '</td>';
+        var isCmd = cfg.cellCls[j] === 'cmd';
+        var txt = (isCmd && !row.show) ? '' : c;
+        return '<td class="' + cfg.cellCls[j] + '">' + (isCmd ? esc(txt) : txt) + '</td>';
       }).join('') + '</tr>';
     });
     tbody.innerHTML = html;
-    if (outB) outB.innerHTML = s.out.map(function (o) { return '<div>' + esc(o) + '</div>'; }).join('');
+    if (outB) outB.innerHTML = s.out.map(function (o) { return '<div>' + (cfg.dots ? esc(o).replace(/ /g, '<span class="sp">·</span>') : esc(o)) + '</div>'; }).join('');
+    drawArrows();
     dots.querySelectorAll('span').forEach(function (d, i) { d.classList.toggle('on', i <= cur); });
   }
   function layout() {
     if (!wrap.clientWidth) return;
-    var tf = 32; table.style.setProperty('--tb-font', tf + 'px');
+    var tf = 36; table.style.setProperty('--tb-font', tf + 'px');
     var keep = cur; cur = steps.length - 1; render();
-    while ((table.scrollWidth > wrap.clientWidth || table.offsetHeight > wrap.clientHeight) && tf > 15) {
+    while ((table.scrollWidth > wrap.clientWidth - 128 || table.offsetHeight > wrap.clientHeight) && tf > 15) {
       tf--; table.style.setProperty('--tb-font', tf + 'px');
     }
     cur = keep; render();
